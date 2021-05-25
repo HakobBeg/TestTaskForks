@@ -20,6 +20,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     HttpClientModule,
     MatCheckboxModule,
     MatDialogModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
     StoreModule.forRoot({
       reducers: combineReducers({forks: forksReducer, table: tableReducer}, {
         forks: {

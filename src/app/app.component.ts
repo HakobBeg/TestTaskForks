@@ -12,6 +12,7 @@ import {selectPage, selectPageSize, selectSearchCriteria} from '../ngrx/selector
 import {Fork} from '../models/priority-models';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
+import {FirebaseWorkerService} from '../services/firebase-worker.service';
 
 @Component({
   selector: 'app-root',
@@ -43,7 +44,7 @@ export class AppComponent implements OnInit {
   public dataSource: Array<Fork> = [];
   private isFirst = false;
 
-  constructor(private forksService: ForksService, private store: Store, public dialog: MatDialog) {
+  constructor(private forksService: ForksService, private store: Store, public dialog: MatDialog, private  firebaseWorkerService: FirebaseWorkerService) {
   }
 
   ngOnInit(): void {
@@ -161,22 +162,23 @@ export class AppComponent implements OnInit {
     }
   }
 
-  public confirmSaving(): void {
+  public confirmSaving(fork: Fork): void {
     this.dialog.open(ConfirmationDialogComponent).afterClosed().pipe(first()).subscribe((res) => {
       if (res) {
         this.store.select(selectSAveMethodId).pipe(first()).subscribe((id) => {
           switch (id) {
             case 1:
               //localStorageCase
-              alert(1);
+              this.addItemtoLocalStorage(fork);
               break;
             case 2:
               //firebaseCase
-              alert(2);
+              this.firebaseWorkerService.setItemToDb(fork).then(() => alert('Fork Added Sucssesfull!')).catch(() => alert('Something went wrong, please try again!'));
               break;
             case 3:
               //doubleCase
-              alert(3);
+              this.addItemtoLocalStorage(fork);
+              this.firebaseWorkerService.setItemToDb(fork).then(() => alert('Fork Added Sucssesfull!')).catch(() => alert('Something went wrong, please try again!'));
               break;
           }
         });
@@ -184,13 +186,8 @@ export class AppComponent implements OnInit {
     });
   }
 
-  public addItemtoLocalStorage() {
-
-  }
-
-
-  public addItemToFirebase() {
-
+  public addItemtoLocalStorage(item: Fork): void {
+    localStorage.setItem(item.fullName, JSON.stringify(item));
   }
 
 

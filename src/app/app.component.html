@@ -51,7 +51,7 @@
       >
         <ng-container matColumnDef="{{columnNames[0]}}">
           <mat-header-cell *matHeaderCellDef> {{columnNames[0]}} </mat-header-cell>
-          <mat-cell (click)="confirmSaving()" class="forkFullName" *matCellDef="let element"> {{element.fullName}} </mat-cell>
+          <mat-cell (click)="confirmSaving(element)" class="forkFullName" *matCellDef="let element"> {{element.fullName}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="{{columnNames[1]}}">
