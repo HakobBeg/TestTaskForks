@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+html{
+  margin: 0;
+  padding: 0;
+  background-color: #7b9988;
+  height: 100vh;
+  overflow: hidden;
+  width: 100vw;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  user-select:none;
+  -moz-user-select:none;
+  -webkit-user-select:none;
+  -webkit-touch-callout:none;
+  overflow: hidden;
+}
