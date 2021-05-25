@@ -18,19 +18,19 @@ import {Fork} from '../models/priority-models';
   animations: [showAnimation]
 })
 export class AppComponent implements OnInit {
-
+//constant scope rearranging
   public animationTex = TEXT_CONSTANTS.topAnimationText;
   public bottomAnimationTex = TEXT_CONSTANTS.bottomAnimationText;
   public enterAnimation = ANIMATION_CONSTANTS;
   public columnNames = RESULT_TABLE_CONSTANTS.columnNames;
+//simple state for animations and so on... not actuall for ngrx
   public isSearched: boolean;
   public showTable: boolean;
   public isLoadingResults = true;
   public errorOccured: boolean;
   public error = '';
-  public isNested: boolean;
 
-
+//ngrx getters
   public forks = this.store.pipe(select(selectForks));
   public forksCount = this.store.pipe(select(selectForksCount));
   public searchCriteria = this.store.select(selectSearchCriteria);
@@ -46,7 +46,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.forks.subscribe((res) => {
-
       this.dataSource = res;
       if (this.isFirst) {
         this.isLoadingResults = false;
@@ -78,7 +77,6 @@ export class AppComponent implements OnInit {
             forks
           }));
         },
-
         (err) => {
           this.errorOccured = true;
           this.error = err;
@@ -91,7 +89,6 @@ export class AppComponent implements OnInit {
 
 
   public search(event: string): void {
-
     zip(this.forksService.getForksCount(event.split(':').slice(1, 3).join('')).pipe(first(), map((count) => {
         count = count.forks;
         this.store.dispatch(setForksCount({count}));
@@ -129,12 +126,9 @@ export class AppComponent implements OnInit {
         this.errorOccured = true;
         this.error = err;
       });
-
-
   }
 
   public back(): void {
-
     this.isLoadingResults = true;
     this.error = '';
     this.errorOccured = false;

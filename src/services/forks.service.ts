@@ -22,8 +22,6 @@ export class ForksService {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('per_page', pageSize.toString());
-    const getUrl: string  = API_CONFIG_CONSTANTS.endpoint + '/' + searchCriteria + '/forks?' + params.toString();
-    return this.hhtp.get<Array<Fork>>(getUrl);
+    return this.hhtp.get<Array<Fork>>(API_CONFIG_CONSTANTS.endpoint + '/' + searchCriteria + '/forks', {params});
   }
-
 }
