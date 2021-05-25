@@ -9,7 +9,15 @@
     <i (click)="input.value=''" class="fa fa-search"></i>
   </button>
   <div class="animationText">
-    <button (click)="search(input.value)" class="searchButton">
+
+    <div class="saveMethods">
+      <label>Select Saving options</label>
+      <div class="checkboxes">
+    <mat-checkbox #lsCheckbox class="example-margin">LocalStorage</mat-checkbox>
+    <mat-checkbox #firebaseCheckbox class="example-margin">Firbase</mat-checkbox>
+      </div>
+    </div>
+    <button (click)="search(input.value); setMethod(lsCheckbox.checked, firebaseCheckbox.checked)" class="searchButton">
       Search
     </button>
     <teximate [text]="animationTex" [enter]="enterAnimation"></teximate>
@@ -43,7 +51,7 @@
       >
         <ng-container matColumnDef="{{columnNames[0]}}">
           <mat-header-cell *matHeaderCellDef> {{columnNames[0]}} </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.fullName}} </mat-cell>
+          <mat-cell (click)="confirmSaving()" class="forkFullName" *matCellDef="let element"> {{element.fullName}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="{{columnNames[1]}}">

@@ -16,10 +16,15 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {tableReducer} from '../ngrx/reducers/table.reducer';
 import {MatProgressSpinnerModule, MatSpinner} from '@angular/material/progress-spinner';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +35,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatIconModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatRadioModule,
+    MatCheckboxModule,
+    MatDialogModule,
     StoreModule.forRoot({
       reducers: combineReducers({forks: forksReducer, table: tableReducer}, {
         forks: {
@@ -48,7 +54,8 @@ import {MatRadioModule} from '@angular/material/radio';
     }),
     TeximateModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

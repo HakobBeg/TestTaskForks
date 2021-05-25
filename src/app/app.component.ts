@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {first, map} from 'rxjs/operators';
 import {ForksService} from '../services/forks.service';
 import {select, Store} from '@ngrx/store';
-import {setForksCount, setRetrivedForks} from '../ngrx/actions/forsk.actions';
+import {setForksCount, setRetrivedForks, setSaveMethodId} from '../ngrx/actions/forsk.actions';
 import {selectForks, selectForksCount, selectSAveMethodId} from '../ngrx/selectors/forks.selectors';
 import {showAnimation} from '../animations/simpleAnimations';
 import {ANIMATION_CONSTANTS, RESULT_TABLE_CONSTANTS, TEXT_CONSTANTS} from '../app-constants/app-constants';
@@ -10,6 +10,8 @@ import {zip} from 'rxjs';
 import {setTableConfigs} from '../ngrx/actions/table.actions';
 import {selectPage, selectPageSize, selectSearchCriteria} from '../ngrx/selectors/table.selectors';
 import {Fork} from '../models/priority-models';
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -41,7 +43,7 @@ export class AppComponent implements OnInit {
   public dataSource: Array<Fork> = [];
   private isFirst = false;
 
-  constructor(private forksService: ForksService, private store: Store) {
+  constructor(private forksService: ForksService, private store: Store, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -142,6 +144,53 @@ export class AppComponent implements OnInit {
   public searchCurrent(src: any): void {
     this.isLoadingResults = true;
     this.search(':' + src.fullName);
+  }
+
+
+  public setMethod(a: any, b: any): void {
+    if (a && b) {
+      this.store.dispatch(setSaveMethodId({methodId: 3}));
+    } else {
+      if (a) {
+        this.store.dispatch(setSaveMethodId({methodId: 1}));
+      } else if (b) {
+        this.store.dispatch(setSaveMethodId({methodId: 2}));
+      } else {
+        this.store.dispatch(setSaveMethodId({methodId: 1}));
+      }
+    }
+  }
+
+  public confirmSaving(): void {
+    this.dialog.open(ConfirmationDialogComponent).afterClosed().pipe(first()).subscribe((res) => {
+      if (res) {
+        this.store.select(selectSAveMethodId).pipe(first()).subscribe((id) => {
+          switch (id) {
+            case 1:
+              //localStorageCase
+              alert(1);
+              break;
+            case 2:
+              //firebaseCase
+              alert(2);
+              break;
+            case 3:
+              //doubleCase
+              alert(3);
+              break;
+          }
+        });
+      }
+    });
+  }
+
+  public addItemtoLocalStorage() {
+
+  }
+
+
+  public addItemToFirebase() {
+
   }
 
 

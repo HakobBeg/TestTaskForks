@@ -232,3 +232,35 @@
  .ratio-button{
    margin-left: 10px;
  }
+
+
+ .saveMethods{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   width: 100%;
+ }
+
+ .saveMethods label{
+   font-weight: bold;
+   color: whitesmoke;
+
+ }
+
+ .checkboxes{
+   width: 50%;
+   margin-top: 10px;
+   margin-bottom: 10px;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-evenly;
+
+
+ }
+
+
+ .forkFullName:hover{
+   color: black;
+   transform: scale(1.2);
+   transition: 200ms;
+ }
