@@ -170,6 +170,7 @@ export class AppComponent implements OnInit {
             case 1:
               //localStorageCase
               this.addItemtoLocalStorage(fork);
+              alert('Fork Added Sucssesfull!');
               break;
             case 2:
               //firebaseCase

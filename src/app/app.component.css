@@ -120,6 +120,8 @@
   teximate{
     color: whitesmoke;
     font-size: 30px;
+    text-align: center !important;
+    align-items: center !important;
   }
 
 .results{
@@ -263,4 +265,13 @@
    color: black;
    transform: scale(1.2);
    transition: 200ms;
+ }
+
+ @media screen and (max-width: 650px) {
+
+.searchForm{
+  width: 50%;
+}
+
+
  }
